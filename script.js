@@ -24,7 +24,7 @@ const themeIcon = document.getElementById("themeIcon");
 const STORAGE_KEY = "smartcash_transactions_simples";
 const THEME_KEY = "smartcash_theme_v1";
 
-// 2. Tema Dark / Light Mode
+
 function applyTheme(theme) {
   const isDark = theme === "dark";
   document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
@@ -43,7 +43,7 @@ if (themeToggleBtn) {
   });
 }
 
-// 3. Carregamos as transações salvas no navegador (com proteção contra JSON inválido)
+//  Carrega as transações salvas no navegador
 function loadTransactions() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -92,7 +92,7 @@ function saveData() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
 }
 
-// 4. Atualiza os 3 cards com feedback visual de positivo e negativo
+// feedback visual de positivo e negativo
 function updateCards(list) {
   let income = 0;
   let expense = 0;
@@ -134,7 +134,7 @@ function updateCards(list) {
   }
 }
 
-// 5. Desenha a lista em ordem cronológica
+// coloca a lista em ordem cronológica
 function renderTransactions() {
   const chronological = [...transactions].sort((a, b) =>
     (a.date || "").localeCompare(b.date || "")
@@ -183,7 +183,7 @@ function renderTransactions() {
   });
 }
 
-// 6. Botões rápidos (+ Entrada / - Saída) e envio do formulário
+// botões de Entrada, Saída e envio do formulário
 if (btnSetPositive) {
   btnSetPositive.addEventListener("click", () => {
     const val = Number(amountInput.value);
@@ -254,5 +254,5 @@ if (clearAllBtn) {
   });
 }
 
-// Inicia a tela
+// Inicia tela
 renderTransactions();

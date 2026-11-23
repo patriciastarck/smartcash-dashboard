@@ -1,6 +1,4 @@
-/* =========================================================
-   VARIÁVEIS DE TEMA (DARK MODE PADRÃO + LIGHT MODE)
-   ========================================================= */
+
 :root {
   --bg-page: #f3f4fa;
   --bg-card: #ffffff;
@@ -38,9 +36,6 @@
   --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
 
-/* =========================================================
-   RESET E ESTRUTURA BASE
-   ========================================================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -79,9 +74,7 @@ body {
   gap: 20px;
 }
 
-/* =========================================================
-   TOPBAR (SEM MENU LATERAL)
-   ========================================================= */
+
 .topbar {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -141,9 +134,7 @@ body {
   font-size: 1.05rem;
 }
 
-/* =========================================================
-   3 CARDS DE RESUMO (ENTRADA, SAÍDA, SALDO TOTAL)
-   ========================================================= */
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -213,9 +204,7 @@ body {
   color: var(--accent-primary);
 }
 
-/* =========================================================
-   GRID PRINCIPAL (FORMULÁRIO + EXTRATO)
-   ========================================================= */
+
 .workspace-grid {
   display: grid;
   grid-template-columns: 380px 1fr;
@@ -353,9 +342,7 @@ body {
   transform: scale(0.99);
 }
 
-/* =========================================================
-   EXTRATO CRONOLÓGICO E ANIMAÇÕES DE ENTRADA/SAÍDA
-   ========================================================= */
+
 .statement-header {
   display: flex;
   align-items: center;
@@ -484,9 +471,7 @@ body {
   }
 }
 
-/* =========================================================
-   RESPONSIVIDADE (CELULARES E TABLETS)
-   ========================================================= */
+
 @media (max-width: 900px) {
   .workspace-grid {
     grid-template-columns: 1fr;
