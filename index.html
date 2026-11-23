@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartCash — Controle Financeiro Pessoal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- CABEÇALHO SUPERIOR -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">◈</span>
+        <div>
+          <h1>SmartCash</h1>
+          <p class="subtitle">Seu Dashboard Financeiro Inteligente</p>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button
+          type="button"
+          id="themeToggle"
+          class="btn-icon"
+          aria-label="Alternar tema claro e escuro"
+          title="Alternar tema"
+        >
+          <span id="themeIcon" aria-hidden="true">☀️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- PAINEL DE RESUMO: 3 CARDS PRINCIPAIS -->
+    <section class="summary-grid" aria-label="Resumo financeiro">
+      <article class="card summary-card income-card">
+        <div class="card-top">
+          <span class="card-label">Entradas</span>
+          <span class="badge positive" aria-hidden="true">↑ Receitas</span>
+        </div>
+        <h2 class="card-value positive-text" id="totalIncome">R$ 0,00</h2>
+      </article>
+
+      <article class="card summary-card expense-card">
+        <div class="card-top">
+          <span class="card-label">Saídas</span>
+          <span class="badge negative" aria-hidden="true">↓ Despesas</span>
+        </div>
+        <h2 class="card-value negative-text" id="totalExpense">R$ 0,00</h2>
+      </article>
+
+      <article class="card summary-card balance-card" id="balanceCard">
+        <div class="card-top">
+          <span class="card-label">Saldo Total</span>
+          <span class="badge neutral" id="balanceStatus">Equilibrado</span>
+        </div>
+        <h2 class="card-value" id="totalBalance">R$ 0,00</h2>
+      </article>
+    </section>
+
+    <!-- ÁREA PRINCIPAL: FORMULÁRIO + EXTRATO -->
+    <main class="workspace-grid">
+      <!-- FORMULÁRIO DE REGISTRO DE TRANSAÇÕES -->
+      <section class="card form-section" aria-labelledby="formTitle">
+        <h2 id="formTitle" class="section-title">Nova Transação</h2>
+        <p class="helper-text">
+          Use <strong>valor positivo</strong> para Entradas (ex: <code>2500.00</code>) e
+          <strong>valor negativo</strong> para Saídas (ex: <code>-120.50</code>).
+        </p>
+
+        <form id="transactionForm" novalidate>
+          <div class="form-group">
+            <label for="descriptionInput">Descrição da transação</label>
+            <input
+              type="text"
+              id="descriptionInput"
+              name="description"
+              placeholder="Ex: Salário, Supermercado, Transporte..."
+              maxlength="80"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="amountInput">Valor (R$)</label>
+            <div class="amount-row">
+              <input
+                type="number"
+                id="amountInput"
+                name="amount"
+                step="0.01"
+                placeholder="Ex: 1500.00 ou -85.90"
+                required
+              />
+              <div class="sign-helpers" role="group" aria-label="Definir sinal do valor">
+                <button type="button" id="btnSetPositive" class="btn-sign pos" title="Marcar como Entrada (+)">+ Entrada</button>
+                <button type="button" id="btnSetNegative" class="btn-sign neg" title="Marcar como Saída (-)">- Saída</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-group">
+              <label for="categoryInput">Categoria</label>
+              <select id="categoryInput" name="category">
+                <option value="Geral">Geral</option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Moradia">Moradia</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Saúde">Saúde</option>
+                <option value="Lazer">Lazer</option>
+                <option value="Salário / Renda">Salário / Renda</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="dateInput">Data</label>
+              <input type="date" id="dateInput" name="date" required />
+            </div>
+          </div>
+
+          <p id="formFeedback" class="feedback-msg" role="alert" aria-live="polite"></p>
+
+          <button type="submit" class="btn-submit">
+            Registrar Transação
+          </button>
+        </form>
+      </section>
+
+      <!-- LISTA DE EXTRATO CRONOLÓGICO -->
+      <section class="card statement-section" aria-labelledby="statementTitle">
+        <div class="statement-header">
+          <div>
+            <h2 id="statementTitle" class="section-title">Extrato de Transações</h2>
+            <span class="muted" id="transactionsCounter">0 transações registradas</span>
+          </div>
+          <button type="button" id="clearAllBtn" class="btn-ghost" hidden>
+            Limpar tudo
+          </button>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <p>Nenhuma transação registrada ainda.</p>
+          <small>Adicione sua primeira entrada ou saída ao lado para calcular o saldo automaticamente.</small>
+        </div>
+
+        <ul id="transactionsList" class="transactions-list" aria-label="Lista de transações"></ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- WIDGET DE ACESSIBILIDADE VLIBRAS -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    if (window.VLibras) {
+      new window.VLibras.Widget("https://vlibras.gov.br/app");
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
